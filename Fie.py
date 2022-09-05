@@ -11,6 +11,5 @@ y2 = np.cos(x)*x
 
 plt.plot(x, y1)
 plt.plot(x, y2)
-
+plt.grid()
 plt.show()
-

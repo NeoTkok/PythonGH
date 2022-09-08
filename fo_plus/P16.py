@@ -1,9 +1,5 @@
 import numpy as np
 
-
-
-
-
 x,y = input().split(" ")
 
 z = []

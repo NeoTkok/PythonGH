@@ -1,89 +1,61 @@
-'''
 import matplotlib.pyplot as plt
-colours=['b','g','r','c','m','y','k','w']
-for i in range(1,6):
-    with open('C:/progi/PY/dead_moroz/00'+str(i)+'.txt') as f:
-        n=f.readline().rstrip()
-        plt.subplot(2,3,i)
-        plt.grid()
-        plt.xlabel('Файл №'+str(i))
-        x_list, y_list= [],[]
-        for j in range(int(n)):
-            x,y=map(float, f.readline().rstrip().split())
-            x_list.append(x)
-            y_list.append(y)
-        plt.scatter(x_list,y_list, color = colours[i])
-plt.show()
-'''
-'''
-import matplotlib.pyplot as plt
-colours=['b','g','r','c','m','y','k','w']
-with open('C:/progi/PY/dead_moroz/ch2.txt') as f:
-    for i in range(1,7):
-        x_list=[float(x) for x in f.readline().rstrip().split()]
-        y_list=[float(x) for x in f.readline().rstrip().split()]
-        plt.subplot(2,3,i)
-        plt.grid()
-        plt.xlabel('Number ' + str(i))
-        plt.plot(x_list,y_list,color = colours[i])
-plt.show()
-'''
-
-import matplotlib.pyplot as plt
-colours=['b','g','r','c','m','y','k','w']
-marks_p=[0]*7
+MP=[0]*7
 for i in range(7):
-    marks_p[i]=[0]*8
-marks_g=[0]*6
+    MP[i]=[0]*8
+MG=[0]*6
 for i in range(6):
-    marks_g[i]=[0]*8
+    MG[i]=[0]*8
 a=True
 with open('C:/progi/PY/dead_moroz/students.csv') as f:
     try:
         while a:
             a=[str(x) for x in f.readline().rstrip().split(';')]
             mark=int(a[2])
-            prep_n=int(a[0][4])
-            group_n=int(a[1][2])
-            marks_p[prep_n-1][mark-3]+=1
-            marks_g[group_n-1][mark-3]+=1
+            prep=int(a[0][4])
+            group=int(a[1][2])
+            MP[prep-1][mark-3]+=1
+            MG[group-1][mark-3]+=1
     except:
-        print('end',prep_n)
-#по преподавателям
-plt.subplot(1,2,1)
+        print('end')
+
+plt.subplot(2,1,1)
+plt.title('Marks per prep')
 index=[('prep'+str(x)) for x in range(1,8)]
-series, cur=[], []
+series1, Mark0=[], []
 for i in range(8):
     for j in range(7):
-        cur.append(marks_p[j][i])
-    series.append(cur)
-    cur=[]
+        Mark0.append(MP[j][i])
+    series1.append(Mark0)
+    Mark0=[]
+
 for i in range(8):
-    if i:
-        plt.bar(index, series[i], 0.5, bottom=bot)
+    if i != 0:
+        plt.bar(index, series1[i], 0.5, bottom=y0)
         for j in range(7):
-            bot[j]+=series[i][j]
+            y0[j]+=series1[i][j]
     else:
-        plt.bar(index, series[i], 0.5)
-        bot=series[0]
+        plt.bar(index, series1[i], 0.5)
+        y0=series1[0]
+    print(y0)
 plt.legend([x for x in range(3,11)])
 
-#по группам
-plt.subplot(1,2,2)
+plt.subplot(2,1,2)
+plt.title('Marks per Group')
 index=[('75'+str(x)) for x in range(1,7)]
-series,cur = [], []
+series2,Mark1 = [], []
 for i in range(8):
     for j in range(6):
-        cur.append(marks_g[j][i])
-    series.append(cur)
-    cur=[]
+        Mark1.append(MG[j][i])
+    series2.append(Mark1)
+    Mark1=[]
+
 for i in range(8):
-    if i:
-        plt.bar(index, series[i], 0.5, bottom=bot)
+    if i != 0:
+        plt.bar(index, series2[i], 0.5, bottom=y1)
         for j in range(6):
-            bot[j]+=series[i][j]
+            y1[j]+=series2[i][j]
     else:
-        plt.bar(index, series[i], 0.5)
-        bot=series[0]
+        plt.bar(index, series2[i], 0.5)
+        y1=series2[0]
 plt.legend([x for x in range(3,11)])
 plt.show()
